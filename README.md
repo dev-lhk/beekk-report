@@ -7,9 +7,9 @@
 | 항목                | 상세 내용                              |
 |---------------------|----------------------------------------|
 | Node.js             | v22.x                                  |
-| NestJS              | v10.x                                  |
+| NestJS              | v11.x                                  |
 | TypeScript          | v5.x                                   |
-| Prisma ORM          | v5.x (Database toolkit)                |
+| Prisma ORM          | v6.x (Database toolkit)                |
 | Database            | SQLite (로컬 DB 파일 기반)            |
 | Validation          | class-validator, class-transformer     |
 | API 문서 자동화     | Swagger (nestjs/swagger)               |
