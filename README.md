@@ -81,9 +81,9 @@ sqlite3 prisma/dev.db < sql/repurchase-users.sql
 │   └── 📂 provider/prisma/
 │       └── prisma.service.ts
 ├── 📂 sql/
-│   ├── price-group.sql           # 5번 과제
-│   ├── monthly-sales.sql         # 6번 과제
-│   └── sql/repurchase-users.sql  # 7번 과제
+│   ├── price-group.sql           # 4번 과제
+│   ├── monthly-sales.sql         # 5번 과제
+│   └── sql/repurchase-users.sql  # 6번 과제
 ├── prisma/
 │   ├── schema.prisma
 │   └── dev.db
