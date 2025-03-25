@@ -1,0 +1,28 @@
+-- CreateTable
+CREATE TABLE "ExpiryRequest" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "today" TEXT NOT NULL,
+    "terms" JSONB NOT NULL,
+    "privacies" JSONB NOT NULL,
+    "result" JSONB NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "BudgetRequest" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "amounts" JSONB NOT NULL,
+    "budget" INTEGER NOT NULL,
+    "result" INTEGER NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CreateTable
+CREATE TABLE "SaleRequest" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "want" JSONB NOT NULL,
+    "number" JSONB NOT NULL,
+    "discount" JSONB NOT NULL,
+    "result" INTEGER NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
