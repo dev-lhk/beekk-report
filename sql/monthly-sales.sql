@@ -42,14 +42,27 @@ INSERT INTO FOOD_ORDER VALUES
 ('OD00000059', 'P0017', 1000, '2022-05-24', '2022-05-30', '2022-05-30', 'FT20070002', 'WH003'),
 ('OD00000060', 'P0019', 2000, '2022-05-29', '2022-06-08', '2022-06-08', 'FT20070002', 'WH003');
 
--- 월 총매출 조회 쿼리
+-- 1. FOOD_ORDER와 FOOD_PRODUCT 테이블을 조인해서 필요한 데이터를 함께 조회합니다.
+--    조인의 기준은 FOOD_ORDER의 PRODUCT_ID와 FOOD_PRODUCT의 PRODUCT_ID가 일치하는 것입니다.
 SELECT
-  p.PRODUCT_ID,
-  p.PRODUCT_NAME,
-  SUM(p.PRICE * o.AMOUNT) AS TOTAL_SALES
-FROM FOOD_ORDER o
-JOIN FOOD_PRODUCT p ON o.PRODUCT_ID = p.PRODUCT_ID
-WHERE strftime('%Y', o.PRODUCE_DATE) = '2022'
-  AND strftime('%m', o.PRODUCE_DATE) = '05'
+  p.PRODUCT_ID,               -- 식품 ID
+  p.PRODUCT_NAME,             -- 식품 이름
+  SUM(p.PRICE * o.AMOUNT) AS TOTAL_SALES  -- 총매출 = 단가(PRICE) * 주문 수량(AMOUNT)을 모두 더한 값
+FROM FOOD_ORDER o            -- FOOD_ORDER 테이블을 o라는 별칭으로 사용
+JOIN FOOD_PRODUCT p          -- FOOD_PRODUCT 테이블을 p라는 별칭으로 사용
+  ON o.PRODUCT_ID = p.PRODUCT_ID  -- 조인 조건: 두 테이블의 PRODUCT_ID가 같을 때만 데이터 결합
+
+-- 2. 생산일자(PRODUCE_DATE)가 2022년 5월인 주문만 필터링합니다.
+--    strftime 함수는 날짜에서 원하는 형식(연도, 월 등)을 추출할 수 있습니다.
+WHERE strftime('%Y', o.PRODUCE_DATE) = '2022'  -- 연도 추출: 2022년인 데이터만
+  AND strftime('%m', o.PRODUCE_DATE) = '05'    -- 월 추출: 5월인 데이터만
+
+-- 3. PRODUCT_ID 기준으로 그룹을 묶고(식품별로),
+--    같은 제품의 주문이 여러 건 있더라도 하나로 묶어 총매출을 계산합니다.
 GROUP BY p.PRODUCT_ID
-ORDER BY TOTAL_SALES DESC, p.PRODUCT_ID ASC;
+
+-- 4. 결과 정렬 기준:
+--    - 먼저 총매출이 높은 순서로 정렬 (내림차순)
+--    - 총매출이 같을 경우에는 PRODUCT_ID 기준으로 오름차순 정렬
+ORDER BY TOTAL_SALES DESC,   -- 총매출이 높은 것부터 먼저
+         p.PRODUCT_ID ASC;   -- 총매출이 같으면 식품 ID가 빠른 순으로
